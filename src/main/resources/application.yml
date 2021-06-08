@@ -1,14 +1,14 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/example?serverTimezone=UTC&characterEncoding=UTF-8
-    username: root
-    password: 1234
-    devtools:
-      livereload:
-        enabled: true
-      freemarker:
-        cache: false
+    url: jdbc:mysql://colorfulmemo.cpuilbc5mrnc.ap-northeast-2.rds.amazonaws.com:3306/example?serverTimezone=UTC&characterEncoding=UTF-8
+    username: admin
+    password: admin1234
+  devtools:
+    livereload:
+      enabled: true
+    freemarker:
+      cache: false
 
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
