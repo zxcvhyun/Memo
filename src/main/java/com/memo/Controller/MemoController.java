@@ -1,3 +1,4 @@
+/*
 package com.memo.Controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,3 +11,5 @@ public class MemoController {
         return "씨발!";
     }
 }
+
+*/
