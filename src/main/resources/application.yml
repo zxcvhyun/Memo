@@ -1,7 +1,7 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://colorfulmemo.cpuilbc5mrnc.ap-northeast-2.rds.amazonaws.com:3306/example?serverTimezone=UTC&characterEncoding=UTF-8
+    url: jdbc:mysql://colorfulmemo.cpuilbc5mrnc.ap-northeast-2.rds.amazonaws.com:3306/example?serverTimezone=UTC&characterEncoding=UTF-8&validationQuery="select 1"
     username: admin
     password: admin1234
   devtools:
