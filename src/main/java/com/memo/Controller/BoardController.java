@@ -12,6 +12,7 @@ import java.util.List;
 //@RestController도 존재하는데, 이는 @Controller, @ResponseBody가 합쳐진 어노테이션입니다.
 //view 페이지가 필요없는 API 응답에 어울리는 어노테이션입니다.
 @AllArgsConstructor
+@CrossOrigin
 public class BoardController {
     private BoardService boardService;
 
