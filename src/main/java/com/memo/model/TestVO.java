@@ -1,4 +1,4 @@
-package com.memo.dto;
+package com.memo.model;
 
 import lombok.Getter;
 import lombok.Setter;

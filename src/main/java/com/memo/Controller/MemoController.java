@@ -1,18 +1,15 @@
-
+/*
 package com.memo.Controller;
 
-import com.memo.dto.TestVO;
+import com.memo.model.TestVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+
 public class MemoController {
 
     private static final Logger logger = LoggerFactory.getLogger(MemoController.class);
@@ -22,19 +19,29 @@ public class MemoController {
         return "Hello";
     }
 
-
-    @RequestMapping(value = "/testVO", method = RequestMethod.POST)
-    public ModelAndView test1(HttpServletRequest httpServletRequest, Model model) {
-        String username = httpServletRequest.getParameter("name");
-        System.out.println("username" + username);
-
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("username", username);
-        return mav;
-
-    }
 /*
     @RequestMapping(value = "/testVO", method = RequestMethod.POST)
+    @ResponseBody
+    public String test1(HttpServletRequest httpServletRequest) {
+        String username = httpServletRequest.getParameter("name");
+
+        return username;
+
+    }
+
+    @RequestMapping(path = "/testVO", method = RequestMethod.POST)
+    public TestVO test1 (@RequestBody TestVO testVO) {
+        return testVO;
+    }
+
+    @PostMapping(value = "/postMapping")
+    public TestVO postMapping(@RequestBody TestVO testVO) {
+        return testVO;
+    }
+
+/*
+    @RequestMapping(path = "/testVO", method = RequestMethod.POST)
+    @ResponseBody
     public TestVO test1 () {
         TestVO test = new TestVO();
 
@@ -44,6 +51,8 @@ public class MemoController {
         test.setPassword(password);
         return test;
     }
-*/
+
+
 }
 
+        */
