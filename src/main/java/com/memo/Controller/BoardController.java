@@ -14,7 +14,7 @@ import java.util.List;
 //view 페이지가 필요없는 API 응답에 어울리는 어노테이션입니다.
 @AllArgsConstructor
 @CrossOrigin
-public class BoardController implements ErrorController{
+public class BoardController {
 
     private BoardService boardService;
 
@@ -67,11 +67,6 @@ public class BoardController implements ErrorController{
         boardService.deletePost(no);
 
         return "redirect:/";
-    }
-
-    @RequestMapping("/error")
-    public String handleError() {
-        return "/index.html";
     }
 
 
