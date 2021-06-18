@@ -34,7 +34,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and() // 로그인 설정
                 .cors()
                 .and()
-                .exceptionHandling().accessDeniedPage("/denied");
+                .exceptionHandling().accessDeniedPage("/denied")
+                .and()
+                .csrf().disable();
     }
     @Bean
     CorsConfigurationSource corsConfigurationSource(){
