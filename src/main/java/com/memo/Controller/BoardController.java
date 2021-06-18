@@ -2,6 +2,7 @@ package com.memo.Controller;
 import com.memo.dto.BoardDto;
 import com.memo.service.BoardService;
 import lombok.AllArgsConstructor;
+import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,7 +14,8 @@ import java.util.List;
 //view 페이지가 필요없는 API 응답에 어울리는 어노테이션입니다.
 @AllArgsConstructor
 @CrossOrigin
-public class BoardController {
+public class BoardController implements ErrorController{
+
     private BoardService boardService;
 
     @GetMapping("/") //게시글목록
@@ -66,4 +68,11 @@ public class BoardController {
 
         return "redirect:/";
     }
+
+    @RequestMapping("/error")
+    public String handleError() {
+        return "/index.html";
+    }
+
+
 }
