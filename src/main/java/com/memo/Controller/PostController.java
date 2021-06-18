@@ -1,13 +1,11 @@
 package com.memo.Controller;
 
 import com.memo.model.InfoVO;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin
 public class PostController {
 
     @RequestMapping(method = RequestMethod.POST, path = "/postRequestApi")
