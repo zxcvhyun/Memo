@@ -15,7 +15,7 @@ public class MemberController {
    // @Autowired
     MemberRepository memberRepository;
 
-    @PostMapping("/register")
+    @PostMapping("/test")
     @ResponseBody
     public String registerUser(@RequestBody MemberEntity newmemberEntity) {
         String userid = newmemberEntity.getId();
