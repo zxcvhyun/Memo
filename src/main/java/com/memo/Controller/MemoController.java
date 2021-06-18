@@ -19,7 +19,6 @@ public class MemoController {
         String password = test.getPassword();
         test.setUsername(username);
         test.setPassword(password);
-
         return test;
     }
 }
