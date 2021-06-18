@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @CrossOrigin("*")
 @AllArgsConstructor
 public class MemberController {
    // @Autowired
     MemberRepository memberRepository;
 
-    @PostMapping("/test")
+    @PostMapping("/register")
     @ResponseBody
     public String registerUser(@RequestBody MemberEntity newmemberEntity) {
         String userid = newmemberEntity.getId();
