@@ -15,8 +15,10 @@ public class MemoController {
     @RequestMapping("/testVO")
     public TestVO test1 () {
         TestVO test = new TestVO();
-        test.setUsername("지현");
-        test.setPassword("1234");
+        String username = test.getUsername();
+        String password = test.getPassword();
+        test.setUsername(username);
+        test.setPassword(password);
 
         return test;
     }
