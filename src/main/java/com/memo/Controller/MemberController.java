@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @CrossOrigin("*")
+@AllArgsConstructor
 public class MemberController {
-    @Autowired
+   // @Autowired
     MemberRepository memberRepository;
 
     @PostMapping("/register")
@@ -28,7 +29,7 @@ public class MemberController {
         MemberEntity memberEntity = new MemberEntity();
         memberEntity.setId(userid);
         memberEntity.setPw(password);
-     //   if (memberRepository.findById(userid) != null) return "failed";
+        //if (memberRepository.findById(userid) != null) return "failed";
 
         memberRepository.save(memberEntity);
         return "success";

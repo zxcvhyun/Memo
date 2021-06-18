@@ -2,7 +2,7 @@
 package com.memo.config;
 
 
-import com.memo.service.MemberService;
+
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +24,7 @@ import java.util.Arrays;
 @EnableWebSecurity
 @AllArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private MemberService memberService;
+   // private MemberService memberService;
 
 
     @Override

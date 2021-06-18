@@ -9,6 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
-  // MemberEntity findById(String userid);
+ //public MemberEntity findById(String userid);
 
 }

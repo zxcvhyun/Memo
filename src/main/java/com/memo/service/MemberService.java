@@ -12,10 +12,8 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@AllArgsConstructor
-public class MemberService  {
-    private MemberRepository memberRepository;
+//public class MemberService  {
+  //  private MemberRepository memberRepository;
 
 
-}
+//}
