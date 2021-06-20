@@ -17,9 +17,11 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, path = "/test")
     // post 방식은 data를 body에 받아오기 때문에 RequestBody 어노테이션을 사용한다.
     public String postRequestApi(@RequestBody MemberEntity memberEntity){
+        System.out.println(memberEntity);
 
         String userid = memberEntity.getId();
         String password = memberEntity.getPw();
+
        if (userid.equals("") || password.equals("")) return "failed";
 
         memberEntity.setId(userid);
