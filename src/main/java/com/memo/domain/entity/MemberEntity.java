@@ -31,6 +31,7 @@ public class MemberEntity {
         this.password = password;
     }
 
+    /*
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,6 +40,7 @@ public class MemberEntity {
 
         return userid.equals(memberEntity.userid) && password.equals(memberEntity.password);
     }
+    */
    /*
     @Builder
     public MemberEntity(String userid, String password){
