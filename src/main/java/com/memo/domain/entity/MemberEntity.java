@@ -36,6 +36,7 @@ public class MemberEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         MemberEntity memberEntity = (MemberEntity) o;
+
         return userid.equals(memberEntity.userid) && password.equals(memberEntity.password);
     }
    /*
