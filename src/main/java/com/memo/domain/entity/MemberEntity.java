@@ -8,26 +8,25 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
-@NoArgsConstructor
 public class MemberEntity {
     @Id
     @GeneratedValue
     private String userid;
     private String password;
 
-    public String getId() {
+    public String getUserid() {
         return userid;
     }
 
-    public void setId(String userid) {
+    public void setUserid(String userid) {
         this.userid = userid;
     }
 
-    public String getPw() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPw(String password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

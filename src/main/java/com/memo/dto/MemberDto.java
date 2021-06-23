@@ -3,7 +3,6 @@ package com.memo.dto;
 import com.memo.domain.entity.MemberEntity;
 import lombok.*;
 
-@NoArgsConstructor
 public class MemberDto {
     private String userid;
     private String password;

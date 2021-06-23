@@ -1,4 +1,4 @@
-/*
+
 package com.memo.service;
 
 import com.memo.domain.Member;
@@ -18,9 +18,20 @@ import java.util.Optional;
 
 @AllArgsConstructor
 @Service
-public class MemberService  {
+public class MemberService {
     private MemberRepository memberRepository;
+
+    public MemberDto memberDto(){
+        MemberEntity memberEntity = new MemberEntity();
+
+        memberEntity.setUserid(memberDto().getUserid());
+        memberEntity.setPassword(memberDto().getPassword());
+
+        memberRepository.save(memberEntity);
+        return memberDto();
+    }
+
 
 
 }
-*/
+
