@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 public class MemberEntity {
@@ -47,13 +48,11 @@ public class MemberEntity {
         return userid.equals(memberEntity.userid) && password.equals(memberEntity.password);
     }
 
-   /*
-    @Builder
-    public MemberEntity(String userid, String password){
-        this.userid = userid;
-        this.password = password;
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userid, password);
     }
-    */
+
 
 
 }
