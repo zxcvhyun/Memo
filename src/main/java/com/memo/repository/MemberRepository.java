@@ -9,6 +9,6 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
     MemberEntity findByUserid(String userid);
 
-    MemberEntity findByUseridAAndPassword(String userid, String password);
+    MemberEntity findByUseridAndPassword(String userid, String password);
     List<MemberEntity> findAll();
 }

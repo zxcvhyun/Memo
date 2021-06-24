@@ -31,7 +31,6 @@ public class UserController {
        // System.out.println(userid);
 
         MemberEntity newmemberEntity = new MemberEntity();
-
         newmemberEntity.setUserid(userid);
         newmemberEntity.setPassword(password);
 
