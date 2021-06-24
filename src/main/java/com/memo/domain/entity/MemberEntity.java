@@ -7,12 +7,19 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user")
 public class MemberEntity {
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
+    private Long id;
     private String userid;
     private String password;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getUserid() {
         return userid;
@@ -30,7 +37,7 @@ public class MemberEntity {
         this.password = password;
     }
 
-    /*
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -39,7 +46,7 @@ public class MemberEntity {
 
         return userid.equals(memberEntity.userid) && password.equals(memberEntity.password);
     }
-    */
+
    /*
     @Builder
     public MemberEntity(String userid, String password){
