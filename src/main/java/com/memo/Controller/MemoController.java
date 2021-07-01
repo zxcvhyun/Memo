@@ -32,7 +32,6 @@ public class MemoController {
     @RequestMapping(method = RequestMethod.POST, path = "/memo/list")
     public List<MemoEntity> getAllMemo(@RequestBody MemoEntity memoEntity) {
         MemoEntity memo = memoRepository.findByUsername(memoEntity.getUsername());
-
         return memoRepository.findAll();
 
     }
