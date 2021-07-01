@@ -27,11 +27,15 @@ public class MemoController {
     @Autowired
     UserController userController;
 
-
-    @RequestMapping(method = RequestMethod.GET, path = "/memo/list")
-    public List<MemoEntity> getAllMemo() {
+    //POST 요청으로 해서 USERNAME 보내줄시 그 사람의 메모리스트를 전체 보여준다.
+    @RequestMapping(method = RequestMethod.POST, path = "/memo/list")
+    public List<MemoEntity> getAllMemo(@RequestBody MemoEntity memoEntity) {
+        MemoEntity memo = (MemoEntity) memoRepository.findByUsername(memoEntity.getUsername());
+        System.out.println(memoRepository.findByUsername(memoEntity.getUsername()));
 
         return memoRepository.findAll();
+
+
     }
 
     //데이터 조회
@@ -56,29 +60,35 @@ public class MemoController {
     public JSONObject createMemo(@RequestBody MemoEntity memoEntity) {
         MemberEntity memberEntity = new MemberEntity();
         MemberEntity member = memberRepository.findByUsername(memoEntity.getUsername());
-
+        Optional<MemoEntity> memo = memoRepository.findById(memoEntity.getMemoid());
         String colorful_key = BCrypt.hashpw(memberEntity.getCreatedAt(), BCrypt.gensalt());
 
         JSONObject jsonObject = new JSONObject();
         JSONObject userObject = new JSONObject();
+         // memo.get().setMemoid(memoEntity.getMemoid());
 
-        String username = member.getUsername();
+        Long memoid = memoEntity.getMemoid();
+        String username = memoEntity.getUsername();
+        String contents = memoEntity.getContents();
+
+        MemoEntity newMemoEntity = new MemoEntity();
+        newMemoEntity.setMemoid(memoid);
+        newMemoEntity.setUsername(username);
+        newMemoEntity.setContents(contents);
         System.out.println(username);
         SimpleDateFormat format1 = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
         String sysdate = format1.format(new Date());
+        newMemoEntity.setEntrydate(sysdate);
 
+        System.out.println(memoid);
 
-        memoEntity.setUsername(username);
-        memoEntity.setEntrydate(sysdate);
-        jsonObject.put("success", true);
-        jsonObject.put("username", memoEntity.getUsername());
-        jsonObject.put("contents", memoEntity.getContents());
-        jsonObject.put("entrydate", memoEntity.getEntrydate());
-        jsonObject.put("colorful_key", colorful_key);
-
-        MemoEntity newMemo = memoRepository.save(memoEntity);
-
-
+            jsonObject.put("success", true);
+            jsonObject.put("id", memoid);
+            jsonObject.put("username", username);
+            jsonObject.put("contents", contents);
+            jsonObject.put("entrydate", newMemoEntity.getEntrydate());
+            jsonObject.put("colorful_key", colorful_key);
+            memoRepository.save(newMemoEntity);
 
 
         return jsonObject;

@@ -10,10 +10,19 @@ public class MemoEntity {
     @Id
     @GeneratedValue
     private Long id;
+    private Long memoid;
     private String username;
     private String contents;
     private String entrydate;
     private String moddate;
+
+    public Long getMemoid() {
+        return memoid;
+    }
+
+    public void setMemoid(Long memoid) {
+        this.memoid = memoid;
+    }
 
     public String getUsername() {
         return username;
