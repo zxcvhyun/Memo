@@ -5,6 +5,7 @@ import com.memo.domain.entity.MemberEntity;
 import com.memo.domain.entity.MemoEntity;
 import com.memo.repository.MemberRepository;
 import com.memo.repository.MemoRepository;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,11 +31,16 @@ public class MemoController {
     //POST 요청으로 해서 USERNAME 보내줄시 그 사람의 메모리스트를 전체 보여준다.
     @RequestMapping(method = RequestMethod.POST, path = "/memo/list")
     public List<MemoEntity> getAllMemo(@RequestBody MemoEntity memoEntity) {
-        MemoEntity memo = (MemoEntity) memoRepository.findByUsername(memoEntity.getUsername());
-        System.out.println(memoRepository.findByUsername(memoEntity.getUsername()));
+        MemoEntity memo = memoRepository.findByUsername(memoEntity.getUsername());
+        JSONObject jsonObject = new JSONObject();
+        if (memo != null) {
+
+            List<MemoEntity> memoEntityList = memoRepository.findAll();
+            jsonObject.put("success", "false");
+            //return jsonObject;
+        }
 
         return memoRepository.findAll();
-
 
     }
 
@@ -60,35 +66,39 @@ public class MemoController {
     public JSONObject createMemo(@RequestBody MemoEntity memoEntity) {
         MemberEntity memberEntity = new MemberEntity();
         MemberEntity member = memberRepository.findByUsername(memoEntity.getUsername());
-        Optional<MemoEntity> memo = memoRepository.findById(memoEntity.getMemoid());
+
         String colorful_key = BCrypt.hashpw(memberEntity.getCreatedAt(), BCrypt.gensalt());
 
         JSONObject jsonObject = new JSONObject();
         JSONObject userObject = new JSONObject();
          // memo.get().setMemoid(memoEntity.getMemoid());
 
-        Long memoid = memoEntity.getMemoid();
+        Long memoId = memoEntity.getMemoid();
         String username = memoEntity.getUsername();
         String contents = memoEntity.getContents();
 
         MemoEntity newMemoEntity = new MemoEntity();
-        newMemoEntity.setMemoid(memoid);
-        newMemoEntity.setUsername(username);
-        newMemoEntity.setContents(contents);
-        System.out.println(username);
-        SimpleDateFormat format1 = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
-        String sysdate = format1.format(new Date());
-        newMemoEntity.setEntrydate(sysdate);
+        if (member != null) {
+                newMemoEntity.setMemoid(memoId);
+                newMemoEntity.setUsername(username);
+                newMemoEntity.setContents(contents);
+                System.out.println(username);
+                SimpleDateFormat format1 = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss");
+                String sysdate = format1.format(new Date());
+                newMemoEntity.setEntrydate(sysdate);
 
-        System.out.println(memoid);
+                System.out.println(memoId);
 
-            jsonObject.put("success", true);
-            jsonObject.put("id", memoid);
-            jsonObject.put("username", username);
-            jsonObject.put("contents", contents);
-            jsonObject.put("entrydate", newMemoEntity.getEntrydate());
-            jsonObject.put("colorful_key", colorful_key);
-            memoRepository.save(newMemoEntity);
+                jsonObject.put("success", true);
+                jsonObject.put("id", memoId);
+                jsonObject.put("username", username);
+                jsonObject.put("contents", contents);
+                jsonObject.put("entrydate", newMemoEntity.getEntrydate());
+                jsonObject.put("colorful_key", colorful_key);
+                memoRepository.save(newMemoEntity);
+            }else{
+            jsonObject.put("success", false);
+        }
 
 
         return jsonObject;
