@@ -32,13 +32,6 @@ public class MemoController {
     @RequestMapping(method = RequestMethod.POST, path = "/memo/list")
     public List<MemoEntity> getAllMemo(@RequestBody MemoEntity memoEntity) {
         MemoEntity memo = memoRepository.findByUsername(memoEntity.getUsername());
-        JSONObject jsonObject = new JSONObject();
-        if (memo != null) {
-
-            List<MemoEntity> memoEntityList = memoRepository.findAll();
-            jsonObject.put("success", "false");
-            //return jsonObject;
-        }
 
         return memoRepository.findAll();
 
