@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
-    MemberEntity findByUserid(String userid);
+    MemberEntity findByUsername(String username);
 
-    MemberEntity findByUseridAndPassword(String userid, String password);
+    MemberEntity findByCreatedAt(String createdAt);
+//    MemberEntity findByColorful_key(String colorful_key);
+    MemberEntity findByUsernameAndPassword(String username, String password);
     List<MemberEntity> findAll();
 }
