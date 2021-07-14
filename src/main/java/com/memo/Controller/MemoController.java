@@ -12,8 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 
@@ -30,47 +30,39 @@ public class MemoController {
 
     //POST 요청으로 해서 USERNAME 보내줄시 그 사람의 메모리스트를 전체 보여준다.
     @RequestMapping(method = RequestMethod.POST, path = "/memo/list")
-    public List<MemoEntity> getAllMemo(@RequestBody MemoEntity memoEntity) {
-        MemoEntity memo = memoRepository.findByUsername(memoEntity.getUsername());
-        return memoRepository.findAll();
+    public JSONObject getAllMemo(@RequestBody MemoEntity memoEntity) {
+        ArrayList<MemoEntity> memoEntities = new ArrayList<>(memoRepository.findByUsername(memoEntity.getUsername()));
+        JSONObject jsonObject = new JSONObject();
+        JSONArray jsonArray = new JSONArray();
+
+        for (int i = 0; i < memoEntities.size(); i++) {
+            JSONObject aJson = new JSONObject();
+            jsonObject.put("success", true);
+            aJson.put("memoId", memoEntities.get(i).getMemoId());
+            aJson.put("username", memoEntities.get(i).getUsername());
+            aJson.put("contents", memoEntities.get(i).getContents());
+            jsonArray.add(aJson);
+        }
+        jsonObject.put("memolist", jsonArray);
+
+
+        return jsonObject;
     }
 
-    //데이터 조회
-    @RequestMapping(method = RequestMethod.GET, path = "memo/list/{id}")
-    public MemoEntity getMemo(@PathVariable String id) {
-        Long memoID = Long.parseLong(id);
-        Optional<MemoEntity> memo = memoRepository.findById(memoID);
-        return memo.get();
-    }
-    //데이터 수정
-    @RequestMapping(method = RequestMethod.POST, path = "/memo/list/{id}")
-    public MemoEntity updateMemo(@PathVariable String id, @RequestBody MemoEntity newMemo) {
-        Long memoID = Long.parseLong(id);
-        Optional<MemoEntity> memo = memoRepository.findById(memoID);
-
-        memo.get().setContents(newMemo.getContents());
-        memoRepository.save(memo.get());
-        return memo.get();
-    }
     //데이터 삽입
     @RequestMapping(method = RequestMethod.POST, path = "/memo/write")
     public JSONObject createMemo(@RequestBody MemoEntity memoEntity) {
-        MemberEntity memberEntity = new MemberEntity();
         MemberEntity member = memberRepository.findByUsername(memoEntity.getUsername());
 
-        String colorful_key = BCrypt.hashpw(memberEntity.getCreatedAt(), BCrypt.gensalt());
-
         JSONObject jsonObject = new JSONObject();
-        JSONObject userObject = new JSONObject();
-         // memo.get().setMemoid(memoEntity.getMemoid());
 
-        Long memoId = memoEntity.getMemoid();
+        Long memoId = memoEntity.getMemoId();
         String username = memoEntity.getUsername();
         String contents = memoEntity.getContents();
 
         MemoEntity newMemoEntity = new MemoEntity();
         if (member != null) {
-                newMemoEntity.setMemoid(memoId);
+                newMemoEntity.setMemoId(memoId);
                 newMemoEntity.setUsername(username);
                 newMemoEntity.setContents(contents);
                 System.out.println(username);
@@ -81,11 +73,11 @@ public class MemoController {
                 System.out.println(memoId);
 
                 jsonObject.put("success", true);
-                jsonObject.put("id", memoId);
+                jsonObject.put("memoId", memoId);
                 jsonObject.put("username", username);
                 jsonObject.put("contents", contents);
                 jsonObject.put("entrydate", newMemoEntity.getEntrydate());
-                jsonObject.put("colorful_key", colorful_key);
+
                 memoRepository.save(newMemoEntity);
             }else{
             jsonObject.put("success", false);
@@ -96,11 +88,30 @@ public class MemoController {
     }
 
     //데이터 삭제
-    @RequestMapping(method = RequestMethod.DELETE, path = "memo/list/{id}")
-    public String deleteMemo(@PathVariable String id){
-        Long memoID = Long.parseLong(id);
-        memoRepository.deleteById(memoID);
-        return "delte success";
+    @RequestMapping(method = RequestMethod.POST, path = "memo/write/delete")
+    public JSONObject deleteMemo(@RequestBody MemoEntity memoEntity){
+        MemberEntity member = memberRepository.findByUsername(memoEntity.getUsername());
+        JSONObject jsonObject = new JSONObject();
+
+        Long memoId = memoEntity.getMemoId();
+        String username = memoEntity.getUsername();
+        String contents = memoEntity.getContents();
+        if (member != null) {
+            if (contents.equals("")) {
+                System.out.println("contents 값 없음");
+                jsonObject.put("success", true);
+              //  jsonObject.put("memoId", memoId);
+              //  jsonObject.put("username", username);
+              //  jsonObject.put("contents", contents);
+
+                memoRepository.deleteByMemoIdAndUsername(memoId, username);
+            } else {
+                System.out.println("메모내용 있음");
+                jsonObject.put("success", false);
+            }
+        }
+
+        return jsonObject;
 
     }
 

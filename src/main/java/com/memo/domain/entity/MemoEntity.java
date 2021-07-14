@@ -10,18 +10,18 @@ public class MemoEntity {
     @Id
     @GeneratedValue
     private Long id;
-    private Long memoid;
+    private Long memoId;
     private String username;
     private String contents;
     private String entrydate;
-    private String moddate;
 
-    public Long getMemoid() {
-        return memoid;
+
+    public Long getMemoId() {
+        return memoId;
     }
 
-    public void setMemoid(Long memoid) {
-        this.memoid = memoid;
+    public void setMemoId(Long memoId) {
+        this.memoId = memoId;
     }
 
     public String getUsername() {
@@ -46,14 +46,6 @@ public class MemoEntity {
 
     public void setEntrydate(String entrydate) {
         this.entrydate = entrydate;
-    }
-
-    public String getModdate() {
-        return moddate;
-    }
-
-    public void setModdate(String moddate) {
-        this.moddate = moddate;
     }
 
     @Override

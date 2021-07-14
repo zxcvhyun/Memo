@@ -87,11 +87,11 @@ public class UserController {
       // 클라이언트에서 받아온 key값과 해싱한 create_at 값이 일치하는지 확인
       JSONObject jsonObject = new JSONObject();
       MemberEntity member = memberRepository.findByUsername(memberEntity.getUsername());
-      String key = BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt());
+      //String key = BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt());
       String colorful_key = BCrypt.hashpw(memberEntity.getCreatedAt(), BCrypt.gensalt());
 
       if (member != null) {
-        if (BCrypt.checkpw(key, colorful_key)) {
+        if (BCrypt.checkpw(BCrypt.hashpw(memberEntity.getCreatedAt(), BCrypt.gensalt()), BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt()))) {
           System.out.println("키 안맞음");
           jsonObject.put("success", false);
         } else {
