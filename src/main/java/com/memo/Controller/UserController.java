@@ -63,8 +63,8 @@ public class UserController {
     public JSONObject postLogin(@RequestBody MemberEntity memberEntity){
       JSONObject jsonObject = new JSONObject();
       MemberEntity member = memberRepository.findByUsername(memberEntity.getUsername());
-      String colorful_key = BCrypt.hashpw(memberEntity.getCreatedAt(), BCrypt.gensalt());
-
+      //String colorful_key = BCrypt.hashpw(memberEntity.getCreatedAt(), BCrypt.gensalt());
+      String colorful_key = member.getColorful_key();
       if (member != null) {
           if(!BCrypt.checkpw(memberEntity.getPassword(), member.getPassword())){
             jsonObject.put("success", false);
@@ -87,14 +87,17 @@ public class UserController {
       // 클라이언트에서 받아온 key값과 해싱한 create_at 값이 일치하는지 확인
       JSONObject jsonObject = new JSONObject();
       MemberEntity member = memberRepository.findByUsername(memberEntity.getUsername());
+     // String key = member.getColorful_key();
+      String colorful_key = memberEntity.getColorful_key();
       //String key = BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt());
-      String colorful_key = BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt());
+     // String colorful_key = BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt());
 
       if (member != null) {
         //if (BCrypt.checkpw(BCrypt.hashpw(memberEntity.getCreatedAt(), BCrypt.gensalt()), BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt()))) {
-       // if (BCrypt.checkpw(colorful_key, BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt()))) {
+        //if (BCrypt.checkpw(colorful_key, BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt()))) {
         //if (BCrypt.checkpw(colorful_key, member.getColorful_key())){
-        if (BCrypt.checkpw(BCrypt.hashpw(memberEntity.getCreatedAt(), BCrypt.gensalt()), BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt()))) {
+       // if (BCrypt.checkpw(BCrypt.hashpw(memberEntity.getCreatedAt(), BCrypt.gensalt()), BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt()))) {
+        if (colorful_key.equals(member.getColorful_key())){
           System.out.println("키 맞음");
           jsonObject.put("success", true);
 
@@ -103,7 +106,9 @@ public class UserController {
           userObject.put("colorful_key", colorful_key);
           jsonObject.put("user", userObject);
         } else {
-          System.out.println("키 안맞음");
+          System.out.println(colorful_key);
+          System.out.println(member.getColorful_key());
+          System.out.println("키가 일치하지 않습니다");
           jsonObject.put("success", false);
 
         }
