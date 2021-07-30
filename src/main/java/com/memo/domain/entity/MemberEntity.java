@@ -17,7 +17,7 @@ public class MemberEntity {
     private String username;
     private String password;
     private String createdAt;
-//    private String colorful_key;
+    private String colorful_key;
 
     public Long getId() {
         return id;
@@ -54,8 +54,8 @@ public class MemberEntity {
 
     }
 
-//    public String getColorful_key(){return colorful_key;}
-//    public void setColorful_key(String colorful_key){this.colorful_key = colorful_key;}
+    public String getColorful_key(){return colorful_key;}
+    public void setColorful_key(String colorful_key){this.colorful_key = colorful_key;}
 
     @Override
     public boolean equals(Object o) {

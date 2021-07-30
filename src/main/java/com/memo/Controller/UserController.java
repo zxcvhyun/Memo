@@ -38,7 +38,7 @@ public class UserController {
 
         //colorful_key 암호화(Bycrypt)
         String colorful_key = BCrypt.hashpw(newmemberEntity.getCreatedAt(), BCrypt.gensalt());
-
+        newmemberEntity.setColorful_key(colorful_key);
         JSONObject jsonObject = new JSONObject();
         JSONObject userObject = new JSONObject();
 
@@ -88,19 +88,24 @@ public class UserController {
       JSONObject jsonObject = new JSONObject();
       MemberEntity member = memberRepository.findByUsername(memberEntity.getUsername());
       //String key = BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt());
-      String colorful_key = BCrypt.hashpw(memberEntity.getCreatedAt(), BCrypt.gensalt());
+      String colorful_key = BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt());
 
       if (member != null) {
+        //if (BCrypt.checkpw(BCrypt.hashpw(memberEntity.getCreatedAt(), BCrypt.gensalt()), BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt()))) {
+       // if (BCrypt.checkpw(colorful_key, BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt()))) {
+        //if (BCrypt.checkpw(colorful_key, member.getColorful_key())){
         if (BCrypt.checkpw(BCrypt.hashpw(memberEntity.getCreatedAt(), BCrypt.gensalt()), BCrypt.hashpw(member.getCreatedAt(), BCrypt.gensalt()))) {
-          System.out.println("키 안맞음");
-          jsonObject.put("success", false);
-        } else {
+          System.out.println("키 맞음");
           jsonObject.put("success", true);
 
           JSONObject userObject = new JSONObject();
           userObject.put("username", member.getUsername());
           userObject.put("colorful_key", colorful_key);
           jsonObject.put("user", userObject);
+        } else {
+          System.out.println("키 안맞음");
+          jsonObject.put("success", false);
+
         }
       }else{
         System.out.println("null  임");
